@@ -5,24 +5,35 @@ def nyc_pigeon_organizer(data)
   data.each do |key, value|
     value.each do |key2, value2|
         pigeon_list << value2
-              binding.pry
+
     end
   end
 
   pigeon_list = pigeon_list.flatten.uniq
 
-  pigeon_list = pigeon_list.collect { |item| [item, [data]] }
+  hash = Hash.new
+  pigeon_list.each do |name|
+    hash[name] = {}
+  end
 
-  pigeon_list.each do |key, value|
-    value[0].each do |key2, value2|
+  hash.each do |item, value|
+    hash[item] = data
+  end
+
+  hash.each do |key, value|
+    value.each do |key2, value2|
       value2.each do |key3, value3|
 
 
-      #  if value3.any? != key
-        #  key3.delete
-      #  end
+        if !value3.include?(key)
+          #key3.delete # hash[key][key2].delete_if {|key3| !value3.include?(key)}
+          hash[key][key2].delete(key3)
+        end
+
       end
+
     end
+
   end
 end
 ##
